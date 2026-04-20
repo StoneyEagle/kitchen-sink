@@ -1,1 +1,81 @@
-{}
+{
+  "version": 1,
+  "site": {
+    "title": "Kitchen Sink",
+    "description": "This is an example of all the options of the tool",
+    "baseUrl": "http://localhost:4321",
+    "theme": "default"
+  },
+  "deployment": {
+    "target": "github-pages",
+    "config": {}
+  },
+  "routes": [
+    {
+      "id": "journal",
+      "title": "Journal",
+      "path": "/entry/:slug",
+      "contentDir": "entries/journal",
+      "layout": "src/layouts/JournalEntry.astro",
+      "rss": {
+        "feed": "/feed.xml",
+        "guidFrom": "entry"
+      }
+    }
+  ],
+  "authors": [
+    {
+      "id": "stoney",
+      "name": "Stoney Eagle",
+      "avatar": "/authors/stoney.jpg",
+      "gitEmail": "you@example.com",
+      "bio": "",
+      "agent": false
+    }
+  ],
+  "share": {
+    "platforms": [
+      "bluesky",
+      "mastodon",
+      "copy-link",
+      "rss"
+    ],
+    "mastodonInstance": "https://hachyderm.io",
+    "showShareCounts": false,
+    "position": "end"
+  },
+  "defaultLicense": "CC-BY-SA-4.0",
+  "codeLicense": "MIT",
+  "design": {
+    "accent": "#9146ff",
+    "uiFont": "open-dyslexic",
+    "monoFont": "jetbrains-mono",
+    "codeThemeDark": "one-dark-pro",
+    "codeThemeLight": "one-light"
+  },
+  "tts": {
+    "default": "edge-tts",
+    "providers": {
+      "edge-tts": {
+        "enabled": true
+      }
+    },
+    "voices": {
+      "aria": {
+        "provider": "edge-tts",
+        "voiceId": "en-US-AriaNeural",
+        "styles": []
+      }
+    }
+  },
+  "ai": {
+    "default": "none",
+    "providers": {},
+    "agents": []
+  },
+  "plugins": [],
+  "updates": {
+    "channel": "stable",
+    "autoDownload": false
+  }
+}

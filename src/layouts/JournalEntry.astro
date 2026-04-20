@@ -5,8 +5,10 @@ import FoghornHead from "@foghorn/site-kit/astro/FoghornHead.astro";
 import ReaderPrefs from "@foghorn/site-kit/astro/ReaderPrefs.astro";
 import ReaderPrefsBoot from "@foghorn/site-kit/astro/ReaderPrefsBoot.astro";
 import SiteFrame from "@foghorn/site-kit/astro/SiteFrame.astro";
-import foghornConfig from "../../foghorn.config.json";
+import rawFoghornConfig from "../../foghorn.config.json";
+import type { FoghornConfig } from "@foghorn/site-kit";
 import "@foghorn/site-kit/styles/foghorn-theme.css";
+const foghornConfig = rawFoghornConfig as unknown as FoghornConfig;
 
 interface Props {
   title: string;
@@ -18,18 +20,21 @@ interface Props {
 }
 
 const { title, date, authors, license, manifestPath, slug } = Astro.props;
+const configAuthors = Array.isArray(foghornConfig.authors) ? foghornConfig.authors : [];
+const configRoutes = Array.isArray(foghornConfig.routes) ? foghornConfig.routes : [];
 const resolvedAuthors = authors
-  .map((id: string) => foghornConfig.authors.find((a: { id: string }) => a.id === id))
+  .map((id: string) => configAuthors.find((a: { id: string }) => a.id === id))
   .filter((a): a is NonNullable<typeof a> => a !== undefined);
 
-const journalRoute = foghornConfig.routes.find((r: { id: string }) => r.id === "journal");
-const entryUrl = new URL(
-  journalRoute?.path.replace(":slug", slug) ?? `/entry/${slug}`,
-  foghornConfig.site.baseUrl,
-).toString();
+const journalRoute = configRoutes.find((r: { id: string }) => r.id === "journal");
+const entryPath = journalRoute?.path.replace(":slug", slug) ?? `/entry/${slug}`;
+const siteBaseUrl = foghornConfig.site?.baseUrl;
+const entryUrl = siteBaseUrl && siteBaseUrl.length > 0
+  ? new URL(entryPath, siteBaseUrl).toString()
+  : entryPath;
 
 const baseUrl = import.meta.env.BASE_URL;
-const nav = foghornConfig.routes.map((r: { id: string; title: string; path: string }) => ({
+const nav = configRoutes.map((r: { id: string; title: string; path: string }) => ({
   id: r.id,
   title: r.title,
   href: `${baseUrl}${r.id === "journal" ? "" : r.id}`.replace(/\/\/$/, "/"),

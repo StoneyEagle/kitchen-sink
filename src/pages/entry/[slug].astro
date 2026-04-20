@@ -21,6 +21,7 @@ const { Content } = await entry.render();
   authors={entry.data.authors}
   license={entry.data.license}
   slug={entry.slug}
+  manifestPath={`/entry-assets/journal/${entry.slug}/entry.manifest.json`}
 >
   <Content />
 </JournalEntry>
