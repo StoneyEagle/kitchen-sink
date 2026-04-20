@@ -1,0 +1,10 @@
+node_modules
+dist
+.astro
+src/foghorn
+# sync.mjs generates one subdirectory per route under src/content/
+# config.ts is user-owned and must be committed
+src/content/journal/
+src/content/*/
+.foghorn/cache
+.foghorn/locks

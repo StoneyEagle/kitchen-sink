@@ -1,0 +1,37 @@
+---
+// Copyright (c) NoMercy Labs. SPDX-License-Identifier: MIT
+import { getCollection, type CollectionEntry } from "astro:content";
+import FoghornHead from "@foghorn/site-kit/astro/FoghornHead.astro";
+import ReaderPrefs from "@foghorn/site-kit/astro/ReaderPrefs.astro";
+import ReaderPrefsBoot from "@foghorn/site-kit/astro/ReaderPrefsBoot.astro";
+import RouteIndex from "@foghorn/site-kit/astro/RouteIndex.astro";
+import foghornConfig from "../../foghorn.config.json";
+import "@foghorn/site-kit/styles/foghorn-theme.css";
+
+const journalEntries = await getCollection("journal");
+const entries = journalEntries.map((e: CollectionEntry<"journal">) => ({
+  slug: e.slug,
+  title: e.data.title,
+  date: e.data.date.toISOString(),
+  excerpt: e.data.excerpt ?? null,
+}));
+
+const route = foghornConfig.routes.find((r) => r.id === "journal");
+// Base-aware path — `import.meta.env.BASE_URL` is Astro's configured base (always ends with "/").
+const basePath = `${import.meta.env.BASE_URL}entry`.replace(/\/\//g, "/");
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{foghornConfig.site.title}</title>
+    <meta name="description" content={foghornConfig.site.description} />
+    <ReaderPrefsBoot />
+    <FoghornHead config={foghornConfig} />
+  </head>
+  <body class="foghorn-page">
+    <main>
+      <RouteIndex title={route?.title ?? "Journal"} entries={entries} basePath={basePath} />
+    </main>
+    <ReaderPrefs />
+  </body>
+</html>

@@ -1,0 +1,72 @@
+---
+// Copyright (c) NoMercy Labs. SPDX-License-Identifier: MIT
+import EntryLayout from "@foghorn/site-kit/astro/EntryLayout.astro";
+import FoghornHead from "@foghorn/site-kit/astro/FoghornHead.astro";
+import ReaderPrefs from "@foghorn/site-kit/astro/ReaderPrefs.astro";
+import ReaderPrefsBoot from "@foghorn/site-kit/astro/ReaderPrefsBoot.astro";
+import SiteFrame from "@foghorn/site-kit/astro/SiteFrame.astro";
+import foghornConfig from "../../foghorn.config.json";
+import "@foghorn/site-kit/styles/foghorn-theme.css";
+
+interface Props {
+  title: string;
+  date: string;
+  authors: string[];
+  license?: string;
+  manifestPath?: string;
+  slug: string;
+}
+
+const { title, date, authors, license, manifestPath, slug } = Astro.props;
+const resolvedAuthors = authors
+  .map((id: string) => foghornConfig.authors.find((a: { id: string }) => a.id === id))
+  .filter((a): a is NonNullable<typeof a> => a !== undefined);
+
+const journalRoute = foghornConfig.routes.find((r: { id: string }) => r.id === "journal");
+const entryUrl = new URL(
+  journalRoute?.path.replace(":slug", slug) ?? `/entry/${slug}`,
+  foghornConfig.site.baseUrl,
+).toString();
+
+const baseUrl = import.meta.env.BASE_URL;
+const nav = foghornConfig.routes.map((r: { id: string; title: string; path: string }) => ({
+  id: r.id,
+  title: r.title,
+  href: `${baseUrl}${r.id === "journal" ? "" : r.id}`.replace(/\/\/$/, "/"),
+}));
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} · {foghornConfig.site.title}</title>
+    <meta name="description" content={foghornConfig.site.description} />
+    <ReaderPrefsBoot />
+    <FoghornHead config={foghornConfig} />
+  </head>
+  <body class="foghorn-page">
+    <SiteFrame
+      siteTitle={foghornConfig.site.title}
+      siteDescription={foghornConfig.site.description}
+      baseUrl={baseUrl}
+      nav={nav}
+      currentPath={Astro.url.pathname}
+    >
+      <EntryLayout
+        title={title}
+        date={date}
+        authors={resolvedAuthors}
+        license={license ?? foghornConfig.defaultLicense}
+        codeLicense={foghornConfig.codeLicense}
+        manifestPath={manifestPath}
+        sharePlatforms={foghornConfig.share.platforms}
+        mastodonInstance={foghornConfig.share.mastodonInstance}
+        url={entryUrl}
+      >
+        <slot />
+      </EntryLayout>
+    </SiteFrame>
+    <ReaderPrefs />
+  </body>
+</html>

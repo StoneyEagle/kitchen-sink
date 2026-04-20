@@ -1,0 +1,26 @@
+---
+// Copyright (c) NoMercy Labs. SPDX-License-Identifier: MIT
+import { getCollection, type CollectionEntry } from "astro:content";
+import JournalEntry from "../../layouts/JournalEntry.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("journal");
+  return entries.map((entry: CollectionEntry<"journal">) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+interface Props { entry: CollectionEntry<"journal"> }
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+<JournalEntry
+  title={entry.data.title}
+  date={entry.data.date.toISOString()}
+  authors={entry.data.authors}
+  license={entry.data.license}
+  slug={entry.slug}
+>
+  <Content />
+</JournalEntry>
