@@ -1,9 +1,9 @@
 {
   "version": 1,
   "site": {
-    "title": "Kitchen Sink",
-    "description": "This is an example of all the options of the tool",
-    "baseUrl": "http://localhost:4321",
+    "title": "My Foghorn Blog",
+    "description": "A Foghorn-powered accessible blog.",
+    "baseUrl": "https://example.com",
     "theme": "default"
   },
   "deployment": {
@@ -28,7 +28,7 @@
       "id": "stoney",
       "name": "Stoney Eagle",
       "avatar": "/authors/stoney.jpg",
-      "gitEmail": "you@example.com",
+      "gitEmail": "patrickstaarink@hotmail.com",
       "bio": "",
       "agent": false
     }
@@ -46,13 +46,6 @@
   },
   "defaultLicense": "CC-BY-SA-4.0",
   "codeLicense": "MIT",
-  "design": {
-    "accent": "#9146ff",
-    "uiFont": "open-dyslexic",
-    "monoFont": "jetbrains-mono",
-    "codeThemeDark": "one-dark-pro",
-    "codeThemeLight": "one-light"
-  },
   "tts": {
     "default": "edge-tts",
     "providers": {
@@ -77,5 +70,6 @@
   "updates": {
     "channel": "stable",
     "autoDownload": false
-  }
+  },
+  "design": {}
 }

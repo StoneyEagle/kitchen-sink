@@ -8,10 +8,3 @@ src/content/journal/
 src/content/*/
 .foghorn/cache
 .foghorn/locks
-
-# Per-entry audio cache — regenerated deterministically from block
-# content hash + voice, no point committing. entry.manifest.json is
-# the synth-output summary and also derivable. entry.speech.json IS
-# committed because it carries the author's narrator choices + pauses.
-entries/**/audio/
-entries/**/entry.manifest.json
