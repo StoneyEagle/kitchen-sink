@@ -1,1 +1,15 @@
-{}
+{
+  "site": {
+    "title": "",
+    "description": "",
+    "baseUrl": ""
+  },
+  "defaultLicense": "CC-BY-SA-4.0",
+  "design": {
+    "accent": "#9146ff",
+    "uiFont": "inter",
+    "monoFont": "jetbrains-mono",
+    "codeThemeDark": "one-dark-pro",
+    "codeThemeLight": "github-light"
+  }
+}
