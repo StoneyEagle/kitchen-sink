@@ -1,5 +1,5 @@
 ---
-title: "Code blocks in every language"
+title: Code blocks in every language
 excerpt: "Shiki-highlighted fenced code in TypeScript, C#, Python, Rust, Go, SQL, YAML, JSON, CSS, and Dockerfile."
 tags: [kitchen-sink, code]
 authors: [stoney]
