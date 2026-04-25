@@ -3,7 +3,7 @@
   "site": {
     "title": "My Foghorn Blog",
     "description": "A Foghorn-powered accessible blog.",
-    "baseUrl": "https://example.com",
+    "baseUrl": "https://stoneyeagle.github.io/kitchen-sink",
     "theme": "default"
   },
   "deployment": {

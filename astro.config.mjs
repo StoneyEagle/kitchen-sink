@@ -16,7 +16,23 @@ const shikiConfig = {
   defaultColor: false,
 };
 
+// Derive site + base from foghorn.config.json. For GitHub-Pages project sites
+// (https://<user>.github.io/<repo>/) the `base` MUST be the repo path or every
+// CSS / JS / image link 404s on deploy.
+const baseUrl = foghornConfig.site?.baseUrl ?? "";
+let site;
+let base = "/";
+try {
+  const u = new URL(baseUrl);
+  site = `${u.protocol}//${u.host}`;
+  base = u.pathname.endsWith("/") ? u.pathname : `${u.pathname}/`;
+} catch {
+  /* baseUrl was a placeholder ("example.com") or empty — fall back to defaults */
+}
+
 export default defineConfig({
+  site,
+  base,
   integrations: [foghorn()],
   markdown: {
     shikiConfig,
