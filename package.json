@@ -5,11 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "node ./node_modules/@foghorn/site-kit/src/sync.mjs \u0026\u0026 astro build",
+    "build": "node ./node_modules/@foghorn/site-kit/src/sync.mjs && astro build",
     "preview": "astro preview"
   },
   "dependencies": {
-    "@foghorn/site-kit": "file:../NoMercyLabs/foghorn/packages/site-kit",
+    "@foghorn/site-kit": "file:./vendor/foghorn-site-kit.tgz",
     "astro": "^5.0.0"
   }
 }
