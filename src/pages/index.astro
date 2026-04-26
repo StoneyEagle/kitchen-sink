@@ -45,6 +45,10 @@ const nav = foghornConfig.routes.map((r: { id: string; title: string; path: stri
       nav={nav}
       currentPath={Astro.url.pathname}
     >
+      <section class="fg-hero">
+        <h1>{foghornConfig.site.title}</h1>
+        <p>{foghornConfig.site.description}</p>
+      </section>
       <RouteIndex title={route?.title ?? "Journal"} entries={entries} basePath={basePath} />
     </SiteFrame>
     <ReaderPrefs />
