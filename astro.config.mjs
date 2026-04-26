@@ -6,10 +6,19 @@ import foghorn from "@foghorn/site-kit/integrations/foghorn";
 import foghornConfig from "./foghorn.config.json" with { type: "json" };
 
 /** @type {import("astro").ShikiConfig} */
+// Code theme presets live in the `design` block of foghorn.config.json
+// (codeThemeDark / codeThemeLight). The legacy site.code.* path is honoured
+// as a fallback for workspaces scaffolded before the design block existed.
 const shikiConfig = {
   themes: {
-    dark: foghornConfig.site?.code?.darkTheme ?? "one-dark-pro",
-    light: foghornConfig.site?.code?.lightTheme ?? "github-light",
+    dark:
+      foghornConfig.design?.codeThemeDark
+      ?? foghornConfig.site?.code?.darkTheme
+      ?? "one-dark-pro",
+    light:
+      foghornConfig.design?.codeThemeLight
+      ?? foghornConfig.site?.code?.lightTheme
+      ?? "github-light",
   },
   // Emit CSS variables for both themes; prefers-color-scheme + the
   // ReaderPrefs override pick which one actually renders at read time.
