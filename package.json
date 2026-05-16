@@ -4,12 +4,15 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "build": "node ./node_modules/@foghorn/site-kit/src/sync.mjs && astro build",
-    "preview": "astro preview"
+  "dev": "astro dev",
+  "build": "node ./node_modules/@foghorn/site-kit/src/sync.mjs \u0026\u0026 astro build",
+  "preview": "astro preview"
   },
   "dependencies": {
-    "@foghorn/site-kit": "file:./vendor/foghorn-site-kit.tgz",
-    "astro": "^5.0.0"
+  "@foghorn/site-kit": "file:./vendor/foghorn-site-kit.tgz",
+  "astro": "^5.0.0"
+  },
+  "overrides": {
+  "devalue": "^5.8.1"
   }
 }
