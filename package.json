@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@foghorn/site-kit": "file:./vendor/foghorn-site-kit.tgz",
-    "astro": "^5.0.0"
+    "astro": "^6.1.10"
+  },
+  "overrides": {
+    "devalue": "^5.8.1"
   }
 }
